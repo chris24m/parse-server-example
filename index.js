@@ -23,7 +23,7 @@ var api = new ParseServer({
    // The public URL of your app.
   // This will appear in the link that is used to verify email addresses and reset passwords.
   // Set the mount path as it is in serverURL
-  publicServerURL: 'http://themusicmuse.co.uk/home.php#/resetpassword',
+  publicServerURL: 'http://themusicmuse.co.uk/',
   // Your apps name. This will appear in the subject and body of the emails that are sent.
   appName: 'ScaleWise',
   emailAdapter: {
