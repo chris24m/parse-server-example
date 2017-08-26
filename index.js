@@ -20,6 +20,23 @@ var api = new ParseServer({
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
+   // The public URL of your app.
+  // This will appear in the link that is used to verify email addresses and reset passwords.
+  // Set the mount path as it is in serverURL
+  publicServerURL: 'http://themusicmuse.co.uk/home.php#/resetpassword',
+  // Your apps name. This will appear in the subject and body of the emails that are sent.
+  appName: 'ScaleWise',
+  emailAdapter: {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      // The address that your emails come from
+      fromAddress: 'admin@themusicmuse.co.uk',
+      // Your domain from mailgun.com
+      domain: 'sandbox7caf3aeaf43749de9741ffe46f115e4e.mailgun.org',
+      // Your API key from mailgun.com
+      apiKey: 'key-c56362d14a3cd2e6e8632b809b8f3e0f',
+    }
+  },
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
@@ -53,3 +70,4 @@ httpServer.listen(port, function() {
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
+
