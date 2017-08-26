@@ -36,7 +36,7 @@ var api = new ParseServer({
       // Your API key from mailgun.com
       apiKey: 'key-c56362d14a3cd2e6e8632b809b8f3e0f',
     }
-  },
+  }
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
