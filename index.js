@@ -72,26 +72,26 @@ app.get('/env',function(req,res){
 app.post('/tokenVerify',function(req,res){
   res.send("here");
   return;
-  var token = req.body.token;
-  var email = req.body.email;
-  var User = mongoose.model('_User');
-
-  mongoose.connect(process.env.DATABASE_URI).then(
-    () => {
-      User.find({_perishable_token: token,email: email},function(err,user){
-        if (err) {
-          res.status(400).send("DB error");
-          // res.status(400).send(err.toString());
-          return;
-        } else {
-          res.status(200).send({token:true});
-        }
-      })
-    },
-    err => {
-      res.status(400).send("Can't connect DB");
-    }
-  )
+  // var token = req.body.token;
+  // var email = req.body.email;
+  // var User = mongoose.model('_User');
+  //
+  // mongoose.connect(process.env.DATABASE_URI).then(
+  //   () => {
+  //     User.find({_perishable_token: token,email: email},function(err,user){
+  //       if (err) {
+  //         res.status(400).send("DB error");
+  //         // res.status(400).send(err.toString());
+  //         return;
+  //       } else {
+  //         res.status(200).send({token:true});
+  //       }
+  //     })
+  //   },
+  //   err => {
+  //     res.status(400).send("Can't connect DB");
+  //   }
+  // )
 });
 
 var port = process.env.PORT || 1337;
