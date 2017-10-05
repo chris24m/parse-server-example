@@ -5,8 +5,7 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var bodyParser = require('body-parser');
 var path = require('path');
-var mongoose = require('mongoose');
-require('./userModel.js');
+var MongoClient = require('mongodb').MongoClient;
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -73,29 +72,25 @@ app.get('/env',function(req,res){
 app.post('/tokenVerify',function(req,res){
   var token = req.body.token;
   var email = req.body.email;
-  var User = mongoose.model('_User');
 
-  mongoose.connect(process.env.DATABASE_URI).then(
-    () => {
-      User.find({},function(err,user){
-        if (err) {
+  MongoClient.connect(process.env.DATABASE_URI,function(err,db){
+    if ( err ) {
+      res.status(400).send("Connection error");
+    } else {
+      var UserCollection = db.collection('_User');
+      UserCollection.find({email:email,_perishable_token:token}).toArray(function(err,docs){
+        if ( err ) {
           res.status(400).send("DB error");
-          // res.status(400).send(err.toString());
-          return;
         } else {
-          res.status(200).send(user);
-          // if ( !user ){
-          //   res.status(200).send({token:false});
-          // } else {
-          //   res.status(200).send({token:true});
-          // }
+          if ( docs.length != 0) {
+            res.status(200).send({token:true});
+          } else {
+            res.status(200).send({token:false});
+          }
         }
       })
-    },
-    err => {
-      res.status(400).send("Can't connect DB");
     }
-  )
+  })
 });
 
 var port = process.env.PORT || 1337;
