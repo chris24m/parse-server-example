@@ -70,11 +70,12 @@ app.get('/env',function(req,res){
 // @token as String
 // @email as String
 app.post('/tokenVerify',function(req,res){
+  res.send("here");
+  return;
   var token = req.body.token;
   var email = req.body.email;
   var User = mongoose.model('_User');
-  res.send("here");
-  return;
+
   mongoose.connect(process.env.DATABASE_URI).then(
     () => {
       User.find({_perishable_token: token,email: email},function(err,user){
