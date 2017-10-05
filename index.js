@@ -83,11 +83,12 @@ app.post('/tokenVerify',function(req,res){
           // res.status(400).send(err.toString());
           return;
         } else {
-          if ( !user ){
-            res.status(200).send({token:false});
-          } else {
-            res.status(200).send({token:true});            
-          }
+          res.status(200).send(user);
+          // if ( !user ){
+          //   res.status(200).send({token:false});
+          // } else {
+          //   res.status(200).send({token:true});
+          // }
         }
       })
     },
