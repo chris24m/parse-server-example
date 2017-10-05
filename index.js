@@ -3,6 +3,7 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
+var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 require('./userModel.js');
@@ -47,7 +48,7 @@ var app = express();
 
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
-
+app.use(bodyParser.json());
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
