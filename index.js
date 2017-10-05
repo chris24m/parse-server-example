@@ -70,7 +70,7 @@ app.get('/env',function(req,res){
 // @token as String
 // @email as String
 app.post('/tokenVerify',function(req,res){
-  res.send("here");
+  res.send(req.body);
   return;
   // var token = req.body.token;
   // var email = req.body.email;
