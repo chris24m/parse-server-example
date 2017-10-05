@@ -4,7 +4,8 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
-
+var mongoose = require('mongoose');
+require('./userModel.js');
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
 if (!databaseUri) {
@@ -65,6 +66,29 @@ app.get('/test', function(req, res) {
 app.get('/env',function(req,res){
   res.send(process.env);
 })
+// Params :
+// @token as String
+// @email as String
+app.post('/tokenVerify',function(req,res){
+  var token = req.body.token;
+  var email = req.body.email;
+  var User = mongoose.model('_User');
+  mongoose.connect(process.env.DATABASE_URI).then(
+    () => {
+      User.find({_perishable_token: token,email: email},function(err,user){
+        if (err) {
+          res.status(400).send(err.toString());
+          return;
+        } else {
+          res.status(200).send({token:true});
+        }
+      })
+    },
+    err => {
+      res.status(400).send("Can't connect DB");
+    }
+  )
+});
 
 var port = process.env.PORT || 1337;
 var httpServer = require('http').createServer(app);
