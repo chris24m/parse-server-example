@@ -77,7 +77,7 @@ app.post('/tokenVerify',function(req,res){
 
   mongoose.connect(process.env.DATABASE_URI).then(
     () => {
-      User.find({_perishable_token: token,email: email},function(err,user){
+      User.find({},function(err,user){
         if (err) {
           res.status(400).send("DB error");
           // res.status(400).send(err.toString());
