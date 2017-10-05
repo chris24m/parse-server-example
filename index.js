@@ -32,7 +32,7 @@ var api = new ParseServer({
       // The address that your emails come from
       fromAddress: 'admin@themusicmuse.co.uk',
       // Your domain from mailgun.com
-      domain: 'sandbox7caf3aeaf43749de9741ffe46f115e4e.mailgun.org',
+      domain: 'themusicmuse.co.uk',
       // Your API key from mailgun.com
       apiKey: 'key-c56362d14a3cd2e6e8632b809b8f3e0f',
     }
@@ -70,4 +70,3 @@ httpServer.listen(port, function() {
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
-
